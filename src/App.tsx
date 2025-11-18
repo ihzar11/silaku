@@ -782,7 +782,13 @@ function App() {
                 return (
                   <Card
                     key={service.title}
-                    onClick={() => setSelectedService(service)}
+                    onClick={() => {
+                      if (service.href) {
+                        window.open(service.href, "_blank")
+                      } else {
+                        setSelectedService(service)
+                      }
+                    }}
                     className="relative hover-shine service-card overflow-hidden flex flex-col lg:flex-row items-center justify-between p-4 lg:p-5 rounded-2xl border border-[#e8dcd8] bg-[#fdfaf9] cursor-pointer transition-all duration-300 hover:bg-white hover:shadow-lg hover:scale-[1.03] opacity-0 hover:border-[#f0e6e2] min-h-[100px] lg:min-h-[80px]"
                   >
                     <h3 className="relative z-10 text-lg text-gray-800 font-medium text-center lg:text-left leading-snug mb-2 lg:mb-0">
@@ -790,17 +796,34 @@ function App() {
                     </h3>
 
                     <div className={`relative z-10 p-2 rounded-full bg-white/80 ${service.color} shadow-sm`}>
-                      {typeof service.icon === "string" ? (
-                        <img
-                          src={service.icon || "/placeholder.svg"}
-                          alt={service.title}
-                          className="w-6 h-6 opacity-90"
-                        />
-                      ) : (
-                        <service.icon className="w-12 h-12 opacity-90" />
-                      )}
+                      <img
+                        src={service.icon || "/placeholder.svg"}
+                        alt={service.title}
+                        className="w-6 h-6 opacity-90"
+                      />
                     </div>
                   </Card>
+                  // <Card
+                  //   key={service.title}
+                  //   onClick={() => setSelectedService(service)}
+                  //   className="relative hover-shine service-card overflow-hidden flex flex-col lg:flex-row items-center justify-between p-4 lg:p-5 rounded-2xl border border-[#e8dcd8] bg-[#fdfaf9] cursor-pointer transition-all duration-300 hover:bg-white hover:shadow-lg hover:scale-[1.03] opacity-0 hover:border-[#f0e6e2] min-h-[100px] lg:min-h-[80px]"
+                  // >
+                  //   <h3 className="relative z-10 text-lg text-gray-800 font-medium text-center lg:text-left leading-snug mb-2 lg:mb-0">
+                  //     {service.title}
+                  //   </h3>
+
+                  //   <div className={`relative z-10 p-2 rounded-full bg-white/80 ${service.color} shadow-sm`}>
+                  //     {typeof service.icon === "string" ? (
+                  //       <img
+                  //         src={service.icon || "/placeholder.svg"}
+                  //         alt={service.title}
+                  //         className="w-6 h-6 opacity-90"
+                  //       />
+                  //     ) : (
+                  //       <service.icon className="w-6 h-6 opacity-90" />
+                  //     )}
+                  //   </div>
+                  // </Card>
                 )
               }
 
@@ -821,17 +844,40 @@ function App() {
                   </h3>
 
                   <div className={`relative z-10 p-2 rounded-full bg-white/80 ${service.color} shadow-sm`}>
-                    {typeof service.icon === "string" ? (
-                      <img
-                        src={service.icon || "/placeholder.svg"}
-                        alt={service.title}
-                        className="w-6 h-6 opacity-90"
-                      />
-                    ) : (
-                      <service.icon className="w-12 h-12 opacity-90" />
-                    )}
+                    <img
+                      src={service.icon || "/placeholder.svg"}
+                      alt={service.title}
+                      className="w-6 h-6 opacity-90"
+                    />
                   </div>
                 </Card>
+                // <Card
+                //   key={service.title}
+                //   onClick={() => {
+                //     if (service.href) {
+                //       window.open(service.href, "_blank")
+                //     } else {
+                //       setSelectedService(service)
+                //     }
+                //   }}
+                //   className="relative hover-shine service-card overflow-hidden flex flex-col lg:flex-row items-center justify-between p-4 lg:p-5 rounded-2xl border border-[#e8dcd8] bg-[#fdfaf9] cursor-pointer transition-all duration-300 hover:bg-white hover:shadow-lg hover:scale-[1.03] opacity-0 hover:border-[#f0e6e2] min-h-[100px] lg:min-h-[80px]"
+                // >
+                //   <h3 className="relative z-10 text-lg text-gray-800 font-medium text-center lg:text-left leading-snug mb-2 lg:mb-0">
+                //     {service.title}
+                //   </h3>
+
+                //   <div className={`relative z-10 p-2 rounded-full bg-white/80 ${service.color} shadow-sm`}>
+                //     {typeof service.icon === "string" ? (
+                //       <img
+                //         src={service.icon || "/placeholder.svg"}
+                //         alt={service.title}
+                //         className="w-6 h-6 opacity-90"
+                //       />
+                //     ) : (
+                //       <service.icon className="w-6 h-6 opacity-90" />
+                //     )}
+                //   </div>
+                // </Card>
               )
             })}
           </div>
