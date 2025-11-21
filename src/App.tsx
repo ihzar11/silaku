@@ -108,6 +108,7 @@ const PrayerTimeCard = () => {
   const [prayerTimes, setPrayerTimes] = useState(null)
   const [loading, setLoading] = useState(true)
   const [currentTime, setCurrentTime] = useState(new Date())
+  const [isMinimized, setIsMinimized] = useState(true)
 
   useEffect(() => {
     const fetchPrayerTimes = async () => {
@@ -176,36 +177,47 @@ const PrayerTimeCard = () => {
 
   return (
     <Card className="bg-gradient-to-br from-green-50 to-emerald-50 p-3 rounded-xl shadow-md border-2 border-green-200 hover:shadow-lg transition-all duration-300 w-full lg:w-64">
-      <div className="flex items-center gap-2 mb-2">
-        <svg className="w-4 h-4 text-green-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <path d="M12 2L2 7l10 5 10-5-10-5z" />
-          <path d="M2 17l10 5 10-5" />
-          <path d="M2 12l10 5 10-5" />
-        </svg>
-        <h3 className="text-sm font-bold text-green-700">Jadwal Sholat</h3>
+      <div className="flex items-center justify-between gap-2 mb-2">
+        <div className="flex items-center gap-2">
+          <svg className="w-4 h-4 text-green-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z" />
+            <path d="M2 17l10 5 10-5" />
+            <path d="M2 12l10 5 10-5" />
+          </svg>
+          <h3 className="text-sm font-bold text-green-700">Jadwal Sholat</h3>
+        </div>
+        <button
+          onClick={() => setIsMinimized(!isMinimized)}
+          className="text-green-700 hover:text-green-900 font-bold text-lg transition-colors"
+          title={isMinimized ? "Expand" : "Minimize"}
+        >
+          {isMinimized ? "+" : "−"}
+        </button>
       </div>
 
-      <div className="space-y-1.5">
-        {[
-          { name: "Subuh", time: prayerTimes.Fajr },
-          { name: "Dzuhur", time: prayerTimes.Dhuhr },
-          { name: "Ashar", time: prayerTimes.Asr },
-          { name: "Maghrib", time: prayerTimes.Maghrib },
-          { name: "Isya", time: prayerTimes.Isha },
-        ].map((prayer) => (
-          <div
-            key={prayer.name}
-            className={`flex justify-between items-center px-2.5 py-1.5 rounded-lg transition-all duration-300 ${
-              prayer.name === nextPrayer
-                ? "bg-green-600 text-white font-semibold"
-                : "bg-white/60 text-gray-700 hover:bg-white/80"
-            }`}
-          >
-            <span className="text-xs">{prayer.name}</span>
-            <span className="text-xs font-mono">{prayer.time}</span>
-          </div>
-        ))}
-      </div>
+      {!isMinimized && (
+        <div className="space-y-1.5">
+          {[
+            { name: "Subuh", time: prayerTimes.Fajr },
+            { name: "Dzuhur", time: prayerTimes.Dhuhr },
+            { name: "Ashar", time: prayerTimes.Asr },
+            { name: "Maghrib", time: prayerTimes.Maghrib },
+            { name: "Isya", time: prayerTimes.Isha },
+          ].map((prayer) => (
+            <div
+              key={prayer.name}
+              className={`flex justify-between items-center px-2.5 py-1.5 rounded-lg transition-all duration-300 ${
+                prayer.name === nextPrayer
+                  ? "bg-green-600 text-white font-semibold"
+                  : "bg-white/60 text-gray-700 hover:bg-white/80"
+              }`}
+            >
+              <span className="text-xs">{prayer.name}</span>
+              <span className="text-xs font-mono">{prayer.time}</span>
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="mt-2 text-center text-[10px] text-green-600 font-medium">Kulon Progo, Yogyakarta</div>
     </Card>
@@ -706,7 +718,7 @@ function App() {
       <img
         src="/assets/pesawat.png"
         alt="Pesawat"
-        className="fixed top-8 lg:top-20 left-0 w-32 h-20 lg:w-48 lg:h-28 animate-flyFast -z-10"
+        className="fixed top-8 lg:top-20 left-0 w-52 h-36 lg:w-96 lg:h-64 animate-flyFast -z-10"
       />
 
       {/* Main Content - Scrollable on mobile, fixed on desktop */}
@@ -737,7 +749,8 @@ function App() {
             </div>
 
             <div className="flex flex-col gap-2 w-full lg:w-auto items-center lg:items-end">
-              <Button
+              {/* <Button
+                onClick={() => window.location.href = "https://kulonprogo.kemenag.go.id/index/"}
                 variant="outline"
                 className={`bg-white/90 transition-all duration-500 shadow-lg text-sm w-full lg:w-auto ${
                   isNightTime
@@ -751,13 +764,40 @@ function App() {
                   }`}
                 />
                 Masuk ke Website Utama
-              </Button>
+              </Button> */}
             </div>
           </div>
         </header>
 
         {/* SILAKU Title */}
         <div className="text-center py-6 lg:py-8 flex-shrink-0">
+        <h2 className={`text-3xl lg:text-4xl xl:text-5xl font-extrabold ${isNightTime ? "text-yellow-400" : "text-green-700"}`}>SILAKU</h2>
+        <p className={`text-base lg:text-lg xl:text-xl font-medium mt-1 ${isNightTime ? "text-yellow-300" : "text-green-700"}`}>
+        Sistem Integrasi Layanan Kemenag Kulon Progo
+        </p>
+        </div>
+
+
+        {/* NEW BUTTON POSITION UNDER SILAKU */}
+        <div className="w-full flex justify-center mt-4">
+          <Button
+          onClick={() => window.open("https://kulonprogo.kemenag.go.id/index/", "_blank")}
+          variant="outline"
+          className={`bg-white/90 transition-all duration-500 shadow-lg text-sm px-12 py-6 text-xl w-80rounded-2xl ${
+          isNightTime
+          ? "border-yellow-200 text-yellow-600 hover:bg-yellow-50 hover:border-yellow-300"
+          : "border-orange-200 text-orange-600 hover:bg-orange-50 hover:border-orange-300"
+          }`}
+          >
+          <div
+          className={`w-4 h-4 rounded mr-2 transition-colors duration-500 ${
+          isNightTime ? "bg-yellow-500" : "bg-orange-500"
+          }`}
+          />
+          Masuk ke Website Utama
+          </Button>
+        </div>
+        {/* <div className="text-center py-6 lg:py-8 flex-shrink-0">
           <h2
             className={`text-3xl lg:text-4xl xl:text-5xl font-extrabold drop-shadow-sm transition-colors duration-500 ${
               isNightTime ? "text-yellow-400" : "text-green-700"
@@ -772,7 +812,7 @@ function App() {
           >
             Sistem Integrasi Layanan Kemenag Kulon Progo
           </p>
-        </div>
+        </div> */}
 
         {/* Service Cards Grid */}
         <div className="w-full px-6 py-6 lg:py-4 flex-shrink-0">
@@ -803,27 +843,6 @@ function App() {
                       />
                     </div>
                   </Card>
-                  // <Card
-                  //   key={service.title}
-                  //   onClick={() => setSelectedService(service)}
-                  //   className="relative hover-shine service-card overflow-hidden flex flex-col lg:flex-row items-center justify-between p-4 lg:p-5 rounded-2xl border border-[#e8dcd8] bg-[#fdfaf9] cursor-pointer transition-all duration-300 hover:bg-white hover:shadow-lg hover:scale-[1.03] opacity-0 hover:border-[#f0e6e2] min-h-[100px] lg:min-h-[80px]"
-                  // >
-                  //   <h3 className="relative z-10 text-lg text-gray-800 font-medium text-center lg:text-left leading-snug mb-2 lg:mb-0">
-                  //     {service.title}
-                  //   </h3>
-
-                  //   <div className={`relative z-10 p-2 rounded-full bg-white/80 ${service.color} shadow-sm`}>
-                  //     {typeof service.icon === "string" ? (
-                  //       <img
-                  //         src={service.icon || "/placeholder.svg"}
-                  //         alt={service.title}
-                  //         className="w-6 h-6 opacity-90"
-                  //       />
-                  //     ) : (
-                  //       <service.icon className="w-6 h-6 opacity-90" />
-                  //     )}
-                  //   </div>
-                  // </Card>
                 )
               }
 
@@ -844,40 +863,9 @@ function App() {
                   </h3>
 
                   <div className={`relative z-10 p-2 rounded-full bg-white/80 ${service.color} shadow-sm`}>
-                    <img
-                      src={service.icon || "/placeholder.svg"}
-                      alt={service.title}
-                      className="w-6 h-6 opacity-90"
-                    />
+                    <img src={service.icon || "/placeholder.svg"} alt={service.title} className="w-6 h-6 opacity-90" />
                   </div>
                 </Card>
-                // <Card
-                //   key={service.title}
-                //   onClick={() => {
-                //     if (service.href) {
-                //       window.open(service.href, "_blank")
-                //     } else {
-                //       setSelectedService(service)
-                //     }
-                //   }}
-                //   className="relative hover-shine service-card overflow-hidden flex flex-col lg:flex-row items-center justify-between p-4 lg:p-5 rounded-2xl border border-[#e8dcd8] bg-[#fdfaf9] cursor-pointer transition-all duration-300 hover:bg-white hover:shadow-lg hover:scale-[1.03] opacity-0 hover:border-[#f0e6e2] min-h-[100px] lg:min-h-[80px]"
-                // >
-                //   <h3 className="relative z-10 text-lg text-gray-800 font-medium text-center lg:text-left leading-snug mb-2 lg:mb-0">
-                //     {service.title}
-                //   </h3>
-
-                //   <div className={`relative z-10 p-2 rounded-full bg-white/80 ${service.color} shadow-sm`}>
-                //     {typeof service.icon === "string" ? (
-                //       <img
-                //         src={service.icon || "/placeholder.svg"}
-                //         alt={service.title}
-                //         className="w-6 h-6 opacity-90"
-                //       />
-                //     ) : (
-                //       <service.icon className="w-6 h-6 opacity-90" />
-                //     )}
-                //   </div>
-                // </Card>
               )
             })}
           </div>

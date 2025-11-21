@@ -65,8 +65,8 @@ export default {
           "100%": { transform: "translateX(100vw) translateY(-40px)" },
         },
         flyFast: { // versi pesawat lebih cepat
-          "0%": { transform: "translateX(-150px) translateY(0)" },
-          "100%": { transform: "translateX(100vw) translateY(-60px)" },
+          "0%": { transform: "translateX(100vw) translateY(0)" },
+          "100%": { transform: "translateX(-150px) translateY(-60px)" },
         },
         cityMove: {
           "0%": { backgroundPosition: "0 0" },
@@ -84,7 +84,7 @@ export default {
       animation: {
         cityMove: "cityMove 30s linear infinite",
         fly: "fly 20s linear infinite",
-        flyFast: "flyFast 8s linear infinite",
+        flyFast: "flyFast 14s linear infinite",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
